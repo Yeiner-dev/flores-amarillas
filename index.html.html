@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flores Amarillas para Ti 🌻💛</title>
+  <!-- Fuentes elegantes y románticas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* Estilos personalizados para efectos románticos y animaciones */
+    body {
+      background: radial-gradient(circle at 50% 30%, #fffef0 0%, #fff7cc 45%, #fde68a 100%);
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    .font-script {
+      font-family: 'Alex Brush', cursive;
+    }
+
+    .font-hand {
+      font-family: 'Caveat', cursive;
+    }
+
+    /* Brillo y flotación suave del ramo */
+    .bouquet-wrapper {
+      filter: drop-shadow(0 15px 30px rgba(217, 119, 6, 0.22));
+      animation: gentleFloat 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes gentleFloat {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(0.8deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
+
+    /* Tarjeta incrustada en las flores */
+    .envelope-card {
+      box-shadow: 0 10px 25px rgba(180, 83, 9, 0.28), 0 2px 6px rgba(0,0,0,0.08);
+      animation: cardPulse 2.4s ease-in-out infinite;
+      backdrop-filter: blur(4px);
+    }
+
+    @keyframes cardPulse {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow: 0 10px 25px rgba(217, 119, 6, 0.3);
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.06);
+        box-shadow: 0 16px 35px rgba(245, 158, 11, 0.55);
+      }
+    }
+
+    /* Animación del modal de la carta */
+    .modal-backdrop {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease-in-out;
+    }
+
+    .modal-backdrop.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-paper {
+      transform: translateY(30px) scale(0.92);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .modal-backdrop.show .modal-paper {
+      transform: translateY(0) scale(1);
+    }
+
+    /* Resplandor del botón de música */
+    .music-btn {
+      box-shadow: 0 8px 24px rgba(217, 119, 6, 0.38);
+      transition: all 0.3s ease;
+    }
+    .music-btn:hover {
+      box-shadow: 0 12px 28px rgba(217, 119, 6, 0.5);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-between min-h-screen text-slate-800 relative selection:bg-amber-200">
+
+  <!-- Canvas para la lluvia constante de pétalos amarillos y destellos -->
+  <canvas id="petalsCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+  <!-- Encabezado sutil -->
+  <header class="w-full text-center pt-6 pb-2 z-10 px-4">
+    <span class="inline-block px-4 py-1 rounded-full bg-amber-100/80 border border-amber-300/70 text-amber-900 text-xs font-semibold tracking-widest uppercase mb-1 shadow-sm">
+      21 de Septiembre • Día de las Flores Amarillas
+    </span>
+    <h1 class="text-4xl sm:text-5xl font-script text-amber-800 drop-shadow-sm">
+      Flores para el amor de mi vida
+    </h1>
+  </header>
+
+  <!-- Contenedor Principal del Ramo con la Tarjeta en medio -->
+  <main class="relative z-10 flex flex-col items-center justify-center my-auto w-full px-4 max-w-lg">
+    
+    <div class="relative bouquet-wrapper w-full max-w-[340px] sm:max-w-[420px] aspect-[3/4] flex items-center justify-center">
+      
+      <!-- Ilustración del Ramo (SVG Detallado en Alta Calidad con lazo amarillo) -->
+      <svg class="w-full h-full select-none" viewBox="0 0 500 680" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Degradados florales -->
+          <radialGradient id="sunflowerPetal" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fff59d" />
+            <stop offset="60%" stop-color="#fbc02d" />
+            <stop offset="100%" stop-color="#f57f17" />
+          </radialGradient>
+          <radialGradient id="flowerCenter" cx="45%" cy="45%" r="55%">
+            <stop offset="0%" stop-color="#8d5b28" />
+            <stop offset="70%" stop-color="#5d4037" />
+            <stop offset="100%" stop-color="#3e2723" />
+          </radialGradient>
+          <linearGradient id="stemGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#4e7037" />
+            <stop offset="50%" stop-color="#739a48" />
+            <stop offset="100%" stop-color="#3f5a2b" />
+          </linearGradient>
+          <linearGradient id="ribbonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffe066" />
+            <stop offset="45%" stop-color="#f59e0b" />
+            <stop offset="100%" stop-color="#d97706" />
+          </linearGradient>
+          <!-- Filtro de acuarela suave -->
+          <filter id="softGaze" x="-10%" y="-10%" width="120%" height="120%">
+            <feGaussianBlur stdDeviation="0.4" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          </filter>
+        </defs>
+
+        <!-- Tallos agrupados abajo -->
+        <g stroke="url(#stemGrad)" stroke-linecap="round" opacity="0.95">
+          <path d="M245 420 L235 605" stroke-width="10" />
+          <path d="M255 420 L250 615" stroke-width="9" />
+          <path d="M235 430 L220 590" stroke-width="8" />
+          <path d="M265 425 L275 600" stroke-width="8" />
+          <path d="M225 435 L205 570" stroke-width="7" />
+          <path d="M275 430 L290 585" stroke-width="7" />
+          <path d="M248 420 L242 620" stroke-width="9" />
+        </g>
+
+        <!-- Hojas y follaje estilo acuarela -->
+        <g fill="#7fa655" opacity="0.85">
+          <path d="M190 380 C150 360 140 320 180 300 C200 330 205 355 190 380 Z" />
+          <path d="M310 380 C350 360 360 320 320 300 C300 330 295 355 310 380 Z" />
+          <path d="M140 320 C100 290 120 250 160 270 C160 290 150 310 140 320 Z" />
+          <path d="M360 320 C400 290 380 250 340 270 C340 290 350 310 360 320 Z" />
+        </g>
+
+        <!-- Flores del fondo (Capas inferiores) -->
+        <!-- Flor Superior Izquierda -->
+        <g transform="translate(160, 160)" filter="url(#softGaze)">
+          <g fill="url(#sunflowerPetal)" opacity="0.9">
+            <ellipse cx="0" cy="-42" rx="13" ry="32" transform="rotate(0)" />
+            <ellipse cx="0" cy="-42" rx="13" ry="32" transform="rotate(30)" />
+            <ellipse cx="0" cy="-42" rx="13" ry="32" transform="rotate(60)" />
+            <ellipse cx="0" cy="-42" rx="13" ry="32" transform="rotate(90)" />
+            <ellipse cx="0" cy="-42" rx="13" ry="32" transform="rotate(120)" />
+            <ellipse cx="0" cy="-42" rx="13" ry="32" transform="rotate(150)" />
+            <ellipse cx="0" cy="-42" rx="13" ry="32" transform="rotate(180)" />
+            <ellipse cx="0" cy="-42" rx="13" ry="32" transform="rotate(210)" />
+            <ellipse cx="0" cy="-42" rx="13" ry="32" transform="rotate(240)" />
+            <ellipse cx="0" cy="-42" rx="13" ry="32" transform="rotate(270)" />
+            <ellipse cx="0" cy="-42" rx="13" ry="32" transform="rotate(300)" />
+            <ellipse cx="0" cy="-42" rx="13" ry="32" transform="rotate(330)" />
+          </g>
+          <circle cx="0" cy="0" r="18" fill="url(#flowerCenter)" />
+        </g>
+
+        <!-- Flor Superior Centro -->
+        <g transform="translate(290, 130)" filter="url(#softGaze)">
+          <g fill="url(#sunflowerPetal)" opacity="0.95">
+            <ellipse cx="0" cy="-48" rx="14" ry="36" transform="rotate(15)" />
+            <ellipse cx="0" cy="-48" rx="14" ry="36" transform="rotate(45)" />
+            <ellipse cx="0" cy="-48" rx="14" ry="36" transform="rotate(75)" />
+            <ellipse cx="0" cy="-48" rx="14" ry="36" transform="rotate(105)" />
+            <ellipse cx="0" cy="-48" rx="14" ry="36" transform="rotate(135)" />
+            <ellipse cx="0" cy="-48" rx="14" ry="36" transform="rotate(165)" />
+            <ellipse cx="0" cy="-48" rx="14" ry="36" transform="rotate(195)" />
+            <ellipse cx="0" cy="-48" rx="14" ry="36" transform="rotate(225)" />
+            <ellipse cx="0" cy="-48" rx="14" ry="36" transform="rotate(255)" />
+            <ellipse cx="0" cy="-48" rx="14" ry="36" transform="rotate(285)" />
+            <ellipse cx="0" cy="-48" rx="14" ry="36" transform="rotate(315)" />
+            <ellipse cx="0" cy="-48" rx="14" ry="36" transform="rotate(345)" />
+          </g>
+          <circle cx="0" cy="0" r="22" fill="url(#flowerCenter)" />
+        </g>
+
+        <!-- Flor Superior Derecha -->
+        <g transform="translate(370, 190)" filter="url(#softGaze)">
+          <g fill="url(#sunflowerPetal)" opacity="0.9">
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(0)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(30)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(60)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(90)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(120)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(150)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(180)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(210)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(240)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(270)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(300)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(330)" />
+          </g>
+          <circle cx="0" cy="0" r="17" fill="url(#flowerCenter)" />
+        </g>
+
+        <!-- Flores del centro y laterales (Capa intermedia) -->
+        <!-- Lateral Izquierda -->
+        <g transform="translate(100, 260)" filter="url(#softGaze)">
+          <g fill="url(#sunflowerPetal)" opacity="0.92">
+            <ellipse cx="0" cy="-38" rx="12" ry="28" transform="rotate(10)" />
+            <ellipse cx="0" cy="-38" rx="12" ry="28" transform="rotate(40)" />
+            <ellipse cx="0" cy="-38" rx="12" ry="28" transform="rotate(70)" />
+            <ellipse cx="0" cy="-38" rx="12" ry="28" transform="rotate(100)" />
+            <ellipse cx="0" cy="-38" rx="12" ry="28" transform="rotate(130)" />
+            <ellipse cx="0" cy="-38" rx="12" ry="28" transform="rotate(160)" />
+            <ellipse cx="0" cy="-38" rx="12" ry="28" transform="rotate(190)" />
+            <ellipse cx="0" cy="-38" rx="12" ry="28" transform="rotate(220)" />
+            <ellipse cx="0" cy="-38" rx="12" ry="28" transform="rotate(250)" />
+            <ellipse cx="0" cy="-38" rx="12" ry="28" transform="rotate(280)" />
+            <ellipse cx="0" cy="-38" rx="12" ry="28" transform="rotate(310)" />
+            <ellipse cx="0" cy="-38" rx="12" ry="28" transform="rotate(340)" />
+          </g>
+          <circle cx="0" cy="0" r="16" fill="url(#flowerCenter)" />
+        </g>
+
+        <!-- Lateral Derecha -->
+        <g transform="translate(390, 275)" filter="url(#softGaze)">
+          <g fill="url(#sunflowerPetal)" opacity="0.92">
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(0)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(30)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(60)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(90)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(120)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(150)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(180)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(210)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(240)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(270)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(300)" />
+            <ellipse cx="0" cy="-40" rx="12" ry="30" transform="rotate(330)" />
+          </g>
+          <circle cx="0" cy="0" r="17" fill="url(#flowerCenter)" />
+        </g>
+
+        <!-- Flor Inferior Izquierda -->
+        <g transform="translate(130, 360)" filter="url(#softGaze)">
+          <g fill="url(#sunflowerPetal)">
+            <ellipse cx="0" cy="-36" rx="11" ry="26" transform="rotate(15)" />
+            <ellipse cx="0" cy="-36" rx="11" ry="26" transform="rotate(45)" />
+            <ellipse cx="0" cy="-36" rx="11" ry="26" transform="rotate(75)" />
+            <ellipse cx="0" cy="-36" rx="11" ry="26" transform="rotate(105)" />
+            <ellipse cx="0" cy="-36" rx="11" ry="26" transform="rotate(135)" />
+            <ellipse cx="0" cy="-36" rx="11" ry="26" transform="rotate(165)" />
+            <ellipse cx="0" cy="-36" rx="11" ry="26" transform="rotate(195)" />
+            <ellipse cx="0" cy="-36" rx="11" ry="26" transform="rotate(225)" />
+            <ellipse cx="0" cy="-36" rx="11" ry="26" transform="rotate(255)" />
+            <ellipse cx="0" cy="-36" rx="11" ry="26" transform="rotate(285)" />
+            <ellipse cx="0" cy="-36" rx="11" ry="26" transform="rotate(315)" />
+            <ellipse cx="0" cy="-36" rx="11" ry="26" transform="rotate(345)" />
+          </g>
+          <circle cx="0" cy="0" r="15" fill="url(#flowerCenter)" />
+        </g>
+
+        <!-- Flor Grande Centro-Arriba -->
+        <g transform="translate(230, 240)" filter="url(#softGaze)">
+          <g fill="url(#sunflowerPetal)">
+            <ellipse cx="0" cy="-56" rx="16" ry="42" transform="rotate(0)" />
+            <ellipse cx="0" cy="-56" rx="16" ry="42" transform="rotate(25)" />
+            <ellipse cx="0" cy="-56" rx="16" ry="42" transform="rotate(50)" />
+            <ellipse cx="0" cy="-56" rx="16" ry="42" transform="rotate(75)" />
+            <ellipse cx="0" cy="-56" rx="16" ry="42" transform="rotate(100)" />
+            <ellipse cx="0" cy="-56" rx="16" ry="42" transform="rotate(125)" />
+            <ellipse cx="0" cy="-56" rx="16" ry="42" transform="rotate(150)" />
+            <ellipse cx="0" cy="-56" rx="16" ry="42" transform="rotate(175)" />
+            <ellipse cx="0" cy="-56" rx="16" ry="42" transform="rotate(200)" />
+            <ellipse cx="0" cy="-56" rx="16" ry="42" transform="rotate(225)" />
+            <ellipse cx="0" cy="-56" rx="16" ry="42" transform="rotate(250)" />
+            <ellipse cx="0" cy="-56" rx="16" ry="42" transform="rotate(275)" />
+            <ellipse cx="0" cy="-56" rx="16" ry="42" transform="rotate(300)" />
+            <ellipse cx="0" cy="-56" rx="16" ry="42" transform="rotate(325)" />
+            <ellipse cx="0" cy="-56" rx="16" ry="42" transform="rotate(350)" />
+          </g>
+          <circle cx="0" cy="0" r="26" fill="url(#flowerCenter)" />
+        </g>
+
+        <!-- Flor Derecha Abajo -->
+        <g transform="translate(360, 370)" filter="url(#softGaze)">
+          <g fill="url(#sunflowerPetal)">
+            <ellipse cx="0" cy="-36" rx="12" ry="28" transform="rotate(15)" />
+            <ellipse cx="0" cy="-36" rx="12" ry="28" transform="rotate(45)" />
+            <ellipse cx="0" cy="-36" rx="12" ry="28" transform="rotate(75)" />
+            <ellipse cx="0" cy="-36" rx="12" ry="28" transform="rotate(105)" />
+            <ellipse cx="0" cy="-36" rx="12" ry="28" transform="rotate(135)" />
+            <ellipse cx="0" cy="-36" rx="12" ry="28" transform="rotate(165)" />
+            <ellipse cx="0" cy="-36" rx="12" ry="28" transform="rotate(195)" />
+            <ellipse cx="0" cy="-36" rx="12" ry="28" transform="rotate(225)" />
+            <ellipse cx="0" cy="-36" rx="12" ry="28" transform="rotate(255)" />
+            <ellipse cx="0" cy="-36" rx="12" ry="28" transform="rotate(285)" />
+            <ellipse cx="0" cy="-36" rx="12" ry="28" transform="rotate(315)" />
+            <ellipse cx="0" cy="-36" rx="12" ry="28" transform="rotate(345)" />
+          </g>
+          <circle cx="0" cy="0" r="16" fill="url(#flowerCenter)" />
+        </g>
+
+        <!-- Pequeños botones / capullos de flores amarillas -->
+        <circle cx="120" cy="180" r="10" fill="#fbc02d" />
+        <circle cx="370" cy="140" r="11" fill="#fbc02d" />
+        <circle cx="160" cy="400" r="12" fill="#fbc02d" />
+        <circle cx="340" cy="415" r="12" fill="#fbc02d" />
+
+        <!-- El Gran Moño y Lazo Amarillo Pintado -->
+        <g id="bigYellowRibbon">
+          <!-- Cintas que caen hacia abajo -->
+          <path d="M245 440 C215 470 170 510 145 565 C175 565 210 520 240 460 Z" fill="url(#ribbonGrad)" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.15))" />
+          <path d="M255 440 C285 470 330 510 355 570 C325 570 290 520 260 460 Z" fill="url(#ribbonGrad)" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.15))" />
+          
+          <!-- Lazos laterales del moño -->
+          <path d="M250 435 C200 400 150 405 160 435 C170 465 220 450 250 435 Z" fill="url(#ribbonGrad)" stroke="#f59e0b" stroke-width="2" />
+          <path d="M250 435 C300 400 350 405 340 435 C330 465 280 450 250 435 Z" fill="url(#ribbonGrad)" stroke="#f59e0b" stroke-width="2" />
+          
+          <!-- Nudo central del lazo -->
+          <ellipse cx="250" cy="435" rx="18" ry="14" fill="#d97706" />
+          <ellipse cx="250" cy="434" rx="15" ry="11" fill="#fbbf24" />
+        </g>
+      </svg>
+
+      <!-- Tarjeta Elegante Incrustada Directamente en el Centro de las Flores -->
+      <button 
+        onclick="openLoveModal()" 
+        aria-label="Abrir carta de amor"
+        class="envelope-card absolute top-[52%] left-[50%] w-[190px] sm:w-[220px] bg-amber-50/95 border-2 border-amber-400 rounded-xl p-3 text-center cursor-pointer transform -translate-x-1/2 -translate-y-1/2 transition hover:scale-110 active:scale-95 z-20 group">
+        
+        <!-- Borde ornamental interior -->
+        <div class="border border-amber-300 rounded-lg p-2 bg-white/80">
+          <div class="flex items-center justify-center gap-1 text-amber-600 mb-0.5">
+            <span class="text-xl group-hover:scale-125 transition-transform duration-300">💌</span>
+          </div>
+          <span class="block font-hand text-2xl text-amber-900 font-bold leading-tight">
+            Para ti, mi niña
+          </span>
+          <span class="block text-[11px] font-semibold tracking-wider text-amber-700 uppercase mt-0.5 animate-pulse">
+            Toca para abrir 💛
+          </span>
+        </div>
+      </button>
+
+    </div>
+
+    <!-- Controles de Audio Flotantes -->
+    <div class="mt-6 flex flex-col items-center">
+      <button 
+        id="playBtn" 
+        onclick="toggleMusic()" 
+        class="music-btn flex items-center gap-3 bg-gradient-to-r from-amber-500 to-amber-600 active:from-amber-600 active:to-amber-700 text-white font-medium py-3 px-7 rounded-full text-sm sm:text-base cursor-pointer">
+        <span id="musicIcon" class="text-xl">🎵</span>
+        <span id="musicText">Reproducir nuestra canción</span>
+      </button>
+      <span class="text-xs text-amber-800/80 mt-2 font-medium">
+        Toca la tarjeta para abrir la cartita 🌻
+      </span>
+    </div>
+
+  </main>
+
+  <!-- MODAL / CARTA DE AMOR EMERGENTE CON SU FOTO -->
+  <div id="loveModal" class="modal-backdrop fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4" onclick="closeOnBackdrop(event)">
+    
+    <div class="modal-paper relative w-full max-w-sm sm:max-w-md bg-[#fffdfa] border-4 border-amber-300 rounded-3xl p-6 sm:p-8 text-center shadow-2xl overflow-hidden">
+      
+      <!-- Fondo con textura sutil y flores en esquinas -->
+      <span class="absolute top-2 left-3 text-3xl select-none opacity-40">🌻</span>
+      <span class="absolute bottom-2 right-3 text-3xl select-none opacity-40">🌻</span>
+      
+      <!-- Botón de cerrar (x) -->
+      <button 
+        onclick="closeLoveModal()" 
+        class="absolute top-4 right-4 w-9 h-9 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-900 flex items-center justify-center text-xl font-bold cursor-pointer transition">
+        &times;
+      </button>
+
+      <!-- Marco de la foto de ella -->
+      <div class="relative w-32 h-32 sm:w-36 sm:h-36 mx-auto mb-4">
+        <div class="w-full h-full rounded-full p-1 bg-gradient-to-tr from-amber-400 via-yellow-300 to-amber-500 shadow-lg">
+          <img 
+            src="foto.jpg" 
+            alt="El amor de mi vida" 
+            onerror="this.onerror=null; this.src='https://placehold.co/400x400/fef08a/854d0e?text=Mi+Amor+Hermosa';" 
+            class="w-full h-full object-cover rounded-full border-2 border-white"
+          />
+        </div>
+        <!-- Medalla de girasol sobre la foto -->
+        <span class="absolute -bottom-1 -right-1 text-3xl drop-shadow-md">🌻</span>
+      </div>
+
+      <!-- Título de la Carta -->
+      <h2 class="font-script text-4xl text-amber-800 mb-1 leading-none">
+        ¡Feliz día de las Flores Amarillas!
+      </h2>
+      <p class="text-xs uppercase tracking-widest text-amber-600 font-semibold mb-4">
+        Eres mi luz de todos los días
+      </p>
+
+      <!-- Contenido de la carta -->
+      <div class="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-4 sm:p-5 text-left text-slate-700 shadow-inner mb-5">
+        <p class="text-sm sm:text-base leading-relaxed font-normal">
+          Hoy quise darte un ramo que nunca se marchita. Gracias por iluminar mis días con tu sonrisa y por ser la persona más increíble. Estas flores amarillas son solo un recordatorio de lo mucho que te amo. 💛
+        </p>
+      </div>
+
+      <!-- Botón de agradecimiento / cerrar -->
+      <button 
+        onclick="closeLoveModal()" 
+        class="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-xl text-sm transition shadow-md cursor-pointer">
+        Te amo con todo mi corazón ✨
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Audio de fondo (Busca 'musica.mp3' en la misma carpeta) -->
+  <audio id="loveAudio" loop preload="auto">
+    <source src="musica.mp3" type="audio/mpeg">
+  </audio>
+
+  <footer class="w-full text-center pb-4 pt-2 z-10">
+    <p class="text-xs text-amber-800/60 font-medium">
+      Hecho con todo mi amor solo para ti
+    </p>
+  </footer>
+
+  <!-- Lógica en JavaScript: Animación Canvas y Comportamiento de Tarjeta/Música -->
+  <script>
+    // 1. ANIMACIÓN DE PÉTALOS FLOTANTES CON CANVAS
+    const canvas = document.getElementById('petalsCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    const numPetals = 36;
+    const petals = [];
+    const petalColors = ['#fde047', '#facc15', '#fbbf24', '#fef08a'];
+
+    class FallingPetal {
+      constructor() {
+        this.reset(true);
+      }
+
+      reset(initial = false) {
+        this.x = Math.random() * width;
+        this.y = initial ? Math.random() * height : -30;
+        this.radius = Math.random() * 8 + 8;
+        this.aspectRatio = Math.random() * 0.4 + 0.4;
+        this.speedY = Math.random() * 1.4 + 0.9;
+        this.speedX = Math.random() * 1.2 - 0.6;
+        this.rotation = Math.random() * 360;
+        this.rotationSpeed = (Math.random() - 0.5) * 2;
+        this.color = petalColors[Math.floor(Math.random() * petalColors.length)];
+        this.opacity = Math.random() * 0.5 + 0.45;
+        this.swingAmplitude = Math.random() * 1.5 + 0.5;
+        this.swingSpeed = Math.random() * 0.03 + 0.01;
+        this.angle = Math.random() * Math.PI * 2;
+      }
+
+      update() {
+        this.y += this.speedY;
+        this.angle += this.swingSpeed;
+        this.x += Math.sin(this.angle) * this.swingAmplitude + this.speedX;
+        this.rotation += this.rotationSpeed;
+
+        if (this.y > height + 25 || this.x < -30 || this.x > width + 30) {
+          this.reset(false);
+        }
+      }
+
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate((this.rotation * Math.PI) / 180);
+        ctx.beginPath();
+        ctx.ellipse(0, 0, this.radius, this.radius * this.aspectRatio, 0, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.opacity;
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    for (let i = 0; i < numPetals; i++) {
+      petals.push(new FallingPetal());
+    }
+
+    function renderPetals() {
+      ctx.clearRect(0, 0, width, height);
+      petals.forEach(petal => {
+        petal.update();
+        petal.draw();
+      });
+      requestAnimationFrame(renderPetals);
+    }
+    renderPetals();
+
+    // 2. GESTIÓN DEL MODAL Y CONTROL DE AUDIO
+    const modal = document.getElementById('loveModal');
+    const audio = document.getElementById('loveAudio');
+    const playBtn = document.getElementById('playBtn');
+    const musicText = document.getElementById('musicText');
+    const musicIcon = document.getElementById('musicIcon');
+    let isMusicPlaying = false;
+
+    function openLoveModal() {
+      modal.classList.add('show');
+      // Si la música aún no está sonando, reproducirla al tocar la tarjeta
+      if (!isMusicPlaying) {
+        startAudio();
+      }
+    }
+
+    function closeLoveModal() {
+      modal.classList.remove('show');
+    }
+
+    function closeOnBackdrop(e) {
+      if (e.target === modal) {
+        closeLoveModal();
+      }
+    }
+
+    function startAudio() {
+      audio.play().then(() => {
+        isMusicPlaying = true;
+        musicText.textContent = 'Pausar música';
+        musicIcon.textContent = '⏸️';
+      }).catch(() => {
+        // En caso de que el navegador requiera clic directo en el botón
+        console.log("Se requiere interacción para reproducir el audio.");
+      });
+    }
+
+    function toggleMusic() {
+      if (isMusicPlaying) {
+        audio.pause();
+        isMusicPlaying = false;
+        musicText.textContent = 'Reproducir nuestra canción';
+        musicIcon.textContent = '🎵';
+      } else {
+        startAudio();
+      }
+    }
+  </script>
+</body>
+</html>
