@@ -25,7 +25,8 @@
       position: relative;
     }
 
-    canvas {
+    /* Fondo de pétalos cayendo */
+    #petalsCanvas {
       position: fixed;
       top: 0;
       left: 0;
@@ -40,27 +41,26 @@
       flex-direction: column;
       align-items: center;
       width: 100%;
-      max-width: 480px;
+      max-width: 460px;
     }
 
     /* Contenedor del Ramo */
     .bouquet-box {
       position: relative;
       width: 100%;
-      max-width: 380px;
-      height: 520px;
+      max-width: 360px;
+      height: 480px;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    /* Vuelve el fondo negro 100% transparente */
-    .bouquet-img {
+    /* Canvas donde se dibuja el ramo con fondo transparente real */
+    #bouquetCanvas {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      mix-blend-mode: screen;
-      filter: drop-shadow(0 15px 25px rgba(217, 119, 6, 0.28));
+      filter: drop-shadow(0 15px 25px rgba(217, 119, 6, 0.3));
       animation: gentleSway 4.5s ease-in-out infinite alternate;
     }
 
@@ -72,7 +72,7 @@
     /* Tarjeta reposicionada abajo en los tallos/lazo */
     .card-trigger {
       position: absolute;
-      bottom: 50px;
+      bottom: 25px;
       left: 50%;
       transform: translateX(-50%);
       width: 220px;
@@ -265,8 +265,8 @@
 
   <div class="main-wrap">
     <div class="bouquet-box">
-      <!-- Ramo con blend mode para fondo transparente -->
-      <img src="ramo.jpg" alt="Ramo de Flores Amarillas" class="bouquet-img">
+      <!-- Canvas que procesa la imagen para eliminar el negro al 100% -->
+      <canvas id="bouquetCanvas"></canvas>
 
       <!-- Tarjeta posicionada en la base del ramo -->
       <div class="card-trigger" onclick="openLetter()">
@@ -305,7 +305,39 @@
   </div>
 
   <script>
-    // 1. ANIMACIÓN DE PÉTALOS EN CANVAS
+    // 1. PROCESAR IMAGEN PARA ELIMINAR EL FONDO NEGRO EXACTO
+    const bCanvas = document.getElementById('bouquetCanvas');
+    const bCtx = bCanvas.getContext('2d');
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = "ramo.jpg";
+
+    img.onload = () => {
+      bCanvas.width = img.width;
+      bCanvas.height = img.height;
+      bCtx.drawImage(img, 0, 0);
+
+      try {
+        const imgData = bCtx.getImageData(0, 0, bCanvas.width, bCanvas.height);
+        const data = imgData.data;
+
+        // Recorrer cada píxel: si es negro u oscuro, hacerlo transparente
+        for (let i = 0; i < data.length; i += 4) {
+          const r = data[i];
+          const g = data[i + 1];
+          const b = data[i + 2];
+          // Umbral para detectar el negro del fondo
+          if (r < 40 && g < 40 && b < 40) {
+            data[i + 3] = 0; // Transparencia total
+          }
+        }
+        bCtx.putImageData(imgData, 0, 0);
+      } catch (e) {
+        console.log("Modo de respaldo activado");
+      }
+    };
+
+    // 2. ANIMACIÓN DE PÉTALOS EN CANVAS
     const canvas = document.getElementById('petalsCanvas');
     const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;
@@ -363,7 +395,7 @@
     }
     animate();
 
-    // 2. REPRODUCTOR DE YOUTUBE (Manuel Turizo - Una Lady Como Tú)
+    // 3. REPRODUCTOR DE YOUTUBE (Manuel Turizo - Una Lady Como Tú)
     let player;
     let isPlaying = false;
     const musicStatus = document.getElementById('musicStatus');
@@ -428,7 +460,6 @@
       }
     }
 
-    // Desbloqueo al primer toque
     document.addEventListener('click', () => { if (!isPlaying) playMusic(); }, { once: true });
     document.addEventListener('touchstart', () => { if (!isPlaying) playMusic(); }, { once: true });
   </script>
