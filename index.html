@@ -43,22 +43,24 @@
       max-width: 480px;
     }
 
-    /* Contenedor del Ramo de Acuarela */
+    /* Contenedor del Ramo de Girasoles */
     .bouquet-box {
       position: relative;
       width: 100%;
-      max-width: 380px;
-      height: 560px;
+      max-width: 400px;
+      height: 520px;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
+    /* Quita el fondo negro de la imagen automáticamente */
     .bouquet-img {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      filter: drop-shadow(0 15px 25px rgba(217, 119, 6, 0.28));
+      mix-blend-mode: multiply; /* Si el fondo es blanco se oculta, y con blend screen si es negro */
+      filter: drop-shadow(0 15px 25px rgba(217, 119, 6, 0.25));
       animation: gentleSway 4.5s ease-in-out infinite alternate;
     }
 
@@ -67,18 +69,18 @@
       100% { transform: rotate(1.5deg) scale(1.02); }
     }
 
-    /* Tarjeta reposicionada más abajo */
+    /* Tarjeta reposicionada justo abajo en los tallos/lazo */
     .card-trigger {
       position: absolute;
-      bottom: 140px;
+      bottom: 60px;
       left: 50%;
       transform: translateX(-50%);
       width: 220px;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.96);
       border: 2px dashed #f59e0b;
       padding: 12px 14px;
       border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(180, 83, 9, 0.28);
+      box-shadow: 0 10px 25px rgba(180, 83, 9, 0.3);
       text-align: center;
       cursor: pointer;
       backdrop-filter: blur(6px);
@@ -225,9 +227,9 @@
       box-shadow: 0 6px 16px rgba(217, 119, 6, 0.3);
     }
 
-    /* Etiqueta de audio */
+    /* Botón discreto de música */
     .music-tag {
-      margin-top: 8px;
+      margin-top: 10px;
       background: rgba(255, 255, 255, 0.9);
       color: #92400e;
       border: 1px solid #fde68a;
@@ -258,20 +260,15 @@
   <!-- Lluvia de pétalos amarillos -->
   <canvas id="petalsCanvas"></canvas>
 
-  <!-- Contenedor del reproductor de YouTube invisible -->
+  <!-- YouTube Audio invisible -->
   <div id="ytPlayer"></div>
 
   <div class="main-wrap">
     <div class="bouquet-box">
-      <!-- Ramo Grande de Acuarela -->
-      <img 
-        src="https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=800&q=80" 
-        alt="Ramo de Flores Amarillas" 
-        class="bouquet-img"
-        style="border-radius: 20px; -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 60%, transparent 100%); mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 60%, transparent 100%);"
-      >
+      <!-- Tu imagen del ramo (ramo.jpg) -->
+      <img src="ramo.jpg" alt="Ramo de Flores Amarillas" class="bouquet-img">
 
-      <!-- Tarjeta posicionada más abajo -->
+      <!-- Tarjeta posicionada en la base del ramo -->
       <div class="card-trigger" onclick="openLetter()">
         <span class="icon">💌</span>
         <div class="title">Para Ti</div>
@@ -279,7 +276,7 @@
       </div>
     </div>
 
-    <!-- Botón discreto de música -->
+    <!-- Indicador de música -->
     <div class="music-tag" onclick="toggleAudio()">
       <span>🎵</span> <span id="musicStatus">Una Lady Como Tú ▶️</span>
     </div>
@@ -431,7 +428,6 @@
       }
     }
 
-    // Desbloqueo del audio con la primera interacción en móvil o PC
     document.addEventListener('click', () => { if (!isPlaying) playMusic(); }, { once: true });
     document.addEventListener('touchstart', () => { if (!isPlaying) playMusic(); }, { once: true });
   </script>
