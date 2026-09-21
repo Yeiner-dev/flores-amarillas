@@ -14,14 +14,14 @@
 
     body {
       min-height: 100vh;
-      background: radial-gradient(circle at center, #fffef0 0%, #fef3c7 45%, #fde68a 100%);
+      background: radial-gradient(circle at 50% 30%, #fffef0 0%, #fef3c7 50%, #fde68a 100%);
       font-family: 'Poppins', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       overflow-x: hidden;
-      padding: 20px 10px;
+      padding: 15px 10px;
       position: relative;
     }
 
@@ -40,173 +40,98 @@
       flex-direction: column;
       align-items: center;
       width: 100%;
-      max-width: 440px;
+      max-width: 480px;
     }
 
-    /* Ramo de Flores Amarillas */
-    .bouquet-container {
+    /* Contenedor del Ramo Grande */
+    .bouquet-box {
       position: relative;
-      width: 330px;
-      height: 480px;
-      margin-bottom: 15px;
+      width: 100%;
+      max-width: 420px;
+      height: 560px;
       display: flex;
       justify-content: center;
-    }
-
-    .flower-group {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-
-    /* Flores individuales */
-    .bloom {
-      position: absolute;
-      font-size: 56px;
-      filter: drop-shadow(0 6px 8px rgba(180, 83, 9, 0.2));
-      animation: sway 3.5s ease-in-out infinite alternate;
-    }
-
-    .b1 { top: 10px; left: 135px; font-size: 65px; animation-delay: 0s; }
-    .b2 { top: 40px; left: 70px; font-size: 58px; animation-delay: 0.4s; }
-    .b3 { top: 35px; right: 70px; font-size: 62px; animation-delay: 0.9s; }
-    .b4 { top: 75px; left: 15px; font-size: 50px; animation-delay: 1.3s; }
-    .b5 { top: 70px; right: 20px; font-size: 52px; animation-delay: 0.7s; }
-    .b6 { top: 120px; left: 35px; font-size: 55px; animation-delay: 1.1s; }
-    .b7 { top: 115px; right: 40px; font-size: 55px; animation-delay: 1.6s; }
-    .b8 { top: 175px; left: 20px; font-size: 46px; animation-delay: 0.5s; }
-    .b9 { top: 170px; right: 25px; font-size: 46px; animation-delay: 1.8s; }
-
-    .leaf {
-      position: absolute;
-      font-size: 34px;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
-    }
-    .l1 { top: 90px; left: -5px; transform: rotate(-35deg); }
-    .l2 { top: 85px; right: -5px; transform: rotate(35deg); }
-    .l3 { top: 190px; left: 60px; transform: rotate(-20deg); }
-    .l4 { top: 185px; right: 60px; transform: rotate(20deg); }
-
-    /* Tallos */
-    .stems {
-      position: absolute;
-      bottom: 25px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 45px;
-      height: 190px;
-      display: flex;
-      justify-content: space-around;
-      z-index: 2;
-    }
-
-    .stem {
-      width: 5px;
-      height: 100%;
-      background: linear-gradient(to bottom, #588157, #3a5a40);
-      border-radius: 4px;
-    }
-    .stem:nth-child(1) { transform: rotate(-6deg); }
-    .stem:nth-child(2) { transform: rotate(2deg); }
-    .stem:nth-child(3) { transform: rotate(7deg); }
-    .stem:nth-child(4) { transform: rotate(-2deg); }
-
-    /* Lazo Amarillo */
-    .ribbon-wrap {
-      position: absolute;
-      bottom: 120px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 5;
-      display: flex;
-      flex-direction: column;
       align-items: center;
     }
 
-    .ribbon-knot {
-      width: 32px;
-      height: 24px;
-      background: #f59e0b;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(180, 83, 9, 0.35);
-      position: relative;
-      z-index: 2;
+    .bouquet-svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 15px 25px rgba(217, 119, 6, 0.22));
+      animation: gentleFloat 4s ease-in-out infinite alternate;
     }
 
-    .ribbon-tails {
+    @keyframes gentleFloat {
+      0% { transform: translateY(0) rotate(-1deg); }
+      100% { transform: translateY(-8px) rotate(1deg); }
+    }
+
+    /* Tarjeta incrustada sobre el ramo */
+    .card-trigger {
       position: absolute;
-      top: 15px;
-      display: flex;
-      gap: 15px;
-    }
-
-    .tail {
-      width: 16px;
-      height: 85px;
-      background: linear-gradient(to bottom, #f59e0b, #fbbf24);
-      border-radius: 4px;
-      box-shadow: 0 5px 12px rgba(180, 83, 9, 0.25);
-    }
-    .tail.left { transform: rotate(18deg); }
-    .tail.right { transform: rotate(-18deg); }
-
-    @keyframes sway {
-      0% { transform: rotate(-3deg) scale(1); }
-      100% { transform: rotate(3deg) scale(1.03); }
-    }
-
-    /* Tarjeta insertada dentro del ramo */
-    .card-inside {
-      position: absolute;
-      top: 105px;
+      top: 36%;
       left: 50%;
-      transform: translateX(-50%);
-      width: 205px;
-      background: #ffffff;
+      transform: translate(-50%, -50%);
+      width: 220px;
+      background: rgba(255, 255, 255, 0.95);
       border: 2px dashed #f59e0b;
       padding: 14px 12px;
-      border-radius: 14px;
-      box-shadow: 0 12px 30px rgba(180, 83, 9, 0.28);
-      z-index: 6;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(180, 83, 9, 0.3);
       text-align: center;
       cursor: pointer;
-      pointer-events: auto;
+      backdrop-filter: blur(4px);
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      animation: pulseCard 2.2s infinite;
+      animation: pulseBtn 2.2s infinite;
     }
 
-    .card-inside:hover {
-      transform: translateX(-50%) translateY(-6px) scale(1.04);
+    .card-trigger:hover, .card-trigger:active {
+      transform: translate(-50%, -55%) scale(1.05);
     }
 
-    @keyframes pulseCard {
-      0%, 100% { box-shadow: 0 10px 25px rgba(245, 158, 11, 0.25); }
-      50% { box-shadow: 0 15px 35px rgba(245, 158, 11, 0.55); }
+    @keyframes pulseBtn {
+      0%, 100% { box-shadow: 0 10px 22px rgba(245, 158, 11, 0.25); }
+      50% { box-shadow: 0 16px 36px rgba(245, 158, 11, 0.55); }
     }
 
-    .card-inside .icon { font-size: 24px; display: block; margin-bottom: 2px; }
-    .card-inside .title { font-family: 'Caveat', cursive; font-size: 1.5rem; color: #b45309; font-weight: 700; line-height: 1.1; }
-    .card-inside .hint { font-size: 0.75rem; color: #92400e; display: block; margin-top: 4px; font-weight: 500; }
+    .card-trigger .icon {
+      font-size: 24px;
+      display: block;
+      margin-bottom: 2px;
+    }
 
-    /* Modal emergente con la carta completa y la foto */
+    .card-trigger .title {
+      font-family: 'Caveat', cursive;
+      font-size: 1.65rem;
+      color: #b45309;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .card-trigger .hint {
+      font-size: 0.78rem;
+      color: #92400e;
+      display: block;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    /* Ventana emergente (Modal) con la carta y la foto */
     .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.65);
       backdrop-filter: blur(8px);
       display: none;
       justify-content: center;
       align-items: center;
       z-index: 999;
+      padding: 20px;
       opacity: 0;
       transition: opacity 0.3s ease;
-      padding: 20px;
     }
 
     .modal-overlay.active {
@@ -219,10 +144,10 @@
       width: 100%;
       max-width: 390px;
       border-radius: 26px;
-      padding: 28px 22px;
+      padding: 26px 20px;
       text-align: center;
       position: relative;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
       border: 2px solid #fef08a;
       transform: scale(0.85);
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -234,8 +159,8 @@
 
     .close-btn {
       position: absolute;
-      top: 14px;
-      right: 18px;
+      top: 12px;
+      right: 16px;
       background: none;
       border: none;
       font-size: 26px;
@@ -244,9 +169,9 @@
     }
 
     .photo-frame {
-      width: 140px;
-      height: 140px;
-      margin: 5px auto 16px;
+      width: 145px;
+      height: 145px;
+      margin: 6px auto 14px;
       position: relative;
     }
 
@@ -275,114 +200,146 @@
 
     .letter-box {
       background: #ffffff;
-      padding: 18px;
+      padding: 16px 18px;
       border-radius: 16px;
       border-left: 4px solid #f59e0b;
       color: #4b5563;
       font-size: 0.92rem;
       line-height: 1.65;
       text-align: left;
-      margin: 14px 0 20px;
+      margin: 14px 0 18px;
       box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
     }
 
-    /* Botón de música */
-    .btn-music {
+    .btn-close-action {
       background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
       color: white;
       border: none;
-      padding: 12px 28px;
+      padding: 10px 24px;
       border-radius: 50px;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 8px 20px rgba(217, 119, 6, 0.35);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: transform 0.2s ease;
-      z-index: 2;
-    }
-
-    .btn-music:active {
-      transform: scale(0.96);
-    }
-
-    /* Reproductor oculto */
-    #ytPlayer {
-      position: absolute;
-      top: -9999px;
-      left: -9999px;
-      width: 1px;
-      height: 1px;
-      opacity: 0;
-      pointer-events: none;
+      box-shadow: 0 6px 16px rgba(217, 119, 6, 0.3);
     }
   </style>
 </head>
 <body>
 
-  <!-- Lluvia de pétalos -->
+  <!-- Lluvia de pétalos amarillos -->
   <canvas id="petalsCanvas"></canvas>
 
-  <!-- Contenedor oculto del reproductor de YouTube -->
-  <div id="ytPlayer"></div>
-
   <div class="main-wrap">
-    <!-- El Ramo de Flores Amarillas -->
-    <div class="bouquet-container">
-      <div class="flower-group">
-        <div class="leaf l1">🌿</div>
-        <div class="leaf l2">🌿</div>
-        <div class="leaf l3">🌿</div>
-        <div class="leaf l4">🌿</div>
+    <div class="bouquet-box">
+      <!-- Ramo Grande Ilustrado en SVG -->
+      <svg class="bouquet-svg" viewBox="0 0 500 700">
+        <defs>
+          <linearGradient id="stemGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#708d57"/>
+            <stop offset="100%" stop-color="#40592e"/>
+          </linearGradient>
+          <linearGradient id="petalY1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#fff07c"/>
+            <stop offset="60%" stop-color="#fbc02d"/>
+            <stop offset="100%" stop-color="#f57f17"/>
+          </linearGradient>
+          <linearGradient id="petalY2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ffee58"/>
+            <stop offset="70%" stop-color="#fdd835"/>
+            <stop offset="100%" stop-color="#e65100"/>
+          </linearGradient>
+          <radialGradient id="centerBrown">
+            <stop offset="0%" stop-color="#d7ccc8"/>
+            <stop offset="45%" stop-color="#8d6e63"/>
+            <stop offset="85%" stop-color="#5d4037"/>
+            <stop offset="100%" stop-color="#3e2723"/>
+          </radialGradient>
+          <linearGradient id="ribbonGold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ffe082"/>
+            <stop offset="40%" stop-color="#ffb300"/>
+            <stop offset="100%" stop-color="#ff8f00"/>
+          </linearGradient>
 
-        <div class="bloom b1">🌻</div>
-        <div class="bloom b2">🌼</div>
-        <div class="bloom b3">🌻</div>
-        <div class="bloom b4">🌼</div>
-        <div class="bloom b5">🌼</div>
-        <div class="bloom b6">🌻</div>
-        <div class="bloom b7">🌻</div>
-        <div class="bloom b8">🌼</div>
-        <div class="bloom b9">🌼</div>
-      </div>
+          <!-- Modelo de flor individual de 16 pétalos -->
+          <g id="flower-unit">
+            <g>
+              <ellipse cx="0" cy="-55" rx="14" ry="42" fill="url(#petalY1)"/>
+              <ellipse cx="0" cy="55" rx="14" ry="42" fill="url(#petalY1)"/>
+              <ellipse cx="-55" cy="0" rx="42" ry="14" fill="url(#petalY1)"/>
+              <ellipse cx="55" cy="0" rx="42" ry="14" fill="url(#petalY1)"/>
+              <ellipse cx="-38" cy="-38" rx="14" ry="42" transform="rotate(-45 -38 -38)" fill="url(#petalY2)"/>
+              <ellipse cx="38" cy="-38" rx="14" ry="42" transform="rotate(45 38 -38)" fill="url(#petalY2)"/>
+              <ellipse cx="-38" cy="38" rx="14" ry="42" transform="rotate(45 -38 38)" fill="url(#petalY2)"/>
+              <ellipse cx="38" cy="38" rx="14" ry="42" transform="rotate(-45 38 38)" fill="url(#petalY2)"/>
+              <ellipse cx="-22" cy="-50" rx="12" ry="38" transform="rotate(-22.5 -22 -50)" fill="url(#petalY1)"/>
+              <ellipse cx="22" cy="-50" rx="12" ry="38" transform="rotate(22.5 22 -50)" fill="url(#petalY1)"/>
+              <ellipse cx="-50" cy="-22" rx="38" ry="12" transform="rotate(-22.5 -50 -22)" fill="url(#petalY1)"/>
+              <ellipse cx="50" cy="-22" rx="38" ry="12" transform="rotate(22.5 50 -22)" fill="url(#petalY1)"/>
+              <ellipse cx="-22" cy="50" rx="12" ry="38" transform="rotate(22.5 -22 50)" fill="url(#petalY2)"/>
+              <ellipse cx="22" cy="50" rx="12" ry="38" transform="rotate(-22.5 22 50)" fill="url(#petalY2)"/>
+              <ellipse cx="-50" cy="22" rx="38" ry="12" transform="rotate(22.5 -50 22)" fill="url(#petalY2)"/>
+              <ellipse cx="50" cy="22" rx="38" ry="12" transform="rotate(-22.5 50 22)" fill="url(#petalY2)"/>
+            </g>
+            <circle cx="0" cy="0" r="28" fill="url(#centerBrown)" stroke="#ffe082" stroke-width="2" stroke-dasharray="2,3"/>
+          </g>
+        </defs>
 
-      <!-- Tarjeta insertada dentro del ramo -->
-      <div class="card-inside" onclick="openLetterModal()">
+        <!-- Tallos verdes del ramo -->
+        <g stroke="url(#stemGrad)" stroke-width="8" stroke-linecap="round">
+          <line x1="250" y1="350" x2="225" y2="580" />
+          <line x1="240" y1="360" x2="245" y2="590" />
+          <line x1="260" y1="350" x2="265" y2="585" />
+          <line x1="250" y1="360" x2="285" y2="575" />
+          <line x1="245" y1="370" x2="235" y2="565" />
+          <line x1="255" y1="370" x2="275" y2="570" />
+        </g>
+
+        <!-- Hojas verdes de relleno -->
+        <g fill="#557a46" opacity="0.85">
+          <path d="M140,240 C110,210 100,160 120,130 C150,160 160,210 140,240 Z" />
+          <path d="M360,240 C390,210 400,160 380,130 C350,160 340,210 360,240 Z" />
+          <path d="M210,130 C190,90 220,50 250,40 C260,80 240,110 210,130 Z" />
+          <path d="M290,130 C310,90 280,50 250,40 C240,80 260,110 290,130 Z" />
+        </g>
+
+        <!-- Cúpula frondosa de Flores Amarillas -->
+        <use href="#flower-unit" x="250" y="110" transform="scale(0.85) translate(45, 18)" />
+        <use href="#flower-unit" x="170" y="150" transform="scale(0.9) translate(18, 15)" />
+        <use href="#flower-unit" x="330" y="150" transform="scale(0.9) translate(-36, 15)" />
+        <use href="#flower-unit" x="120" y="230" transform="scale(0.8) translate(30, 57)" />
+        <use href="#flower-unit" x="380" y="230" transform="scale(0.8) translate(-95, 57)" />
+        <use href="#flower-unit" x="190" y="250" transform="scale(0.95) translate(10, 12)" />
+        <use href="#flower-unit" x="310" y="250" transform="scale(0.95) translate(-32, 12)" />
+        <use href="#flower-unit" x="250" y="200" transform="scale(1.05) translate(-12, -10)" />
+        <use href="#flower-unit" x="160" y="320" transform="scale(0.85) translate(28, 56)" />
+        <use href="#flower-unit" x="340" y="320" transform="scale(0.85) translate(-60, 56)" />
+
+        <!-- Gran Lazo Amarillo Dorado -->
+        <g id="ribbon">
+          <!-- Lazadas caídas -->
+          <path d="M235,465 Q180,520 160,600 Q200,580 230,490 Z" fill="url(#ribbonGold)" />
+          <path d="M265,465 Q320,520 340,600 Q300,580 270,490 Z" fill="url(#ribbonGold)" />
+          <!-- Orejas del moño -->
+          <ellipse cx="205" cy="455" rx="35" ry="24" transform="rotate(-20 205 455)" fill="url(#ribbonGold)" stroke="#d97706" stroke-width="2"/>
+          <ellipse cx="295" cy="455" rx="35" ry="24" transform="rotate(20 295 455)" fill="url(#ribbonGold)" stroke="#d97706" stroke-width="2"/>
+          <!-- Nudo central -->
+          <rect x="235" y="445" width="30" height="25" rx="7" fill="#f59e0b" stroke="#b45309" stroke-width="2"/>
+        </g>
+      </svg>
+
+      <!-- Tarjeta en el centro del ramo -->
+      <div class="card-trigger" onclick="openLetter()">
         <span class="icon">💌</span>
         <div class="title">Para Ti</div>
         <span class="hint">Toca para abrir la carta</span>
       </div>
-
-      <!-- Tallos -->
-      <div class="stems">
-        <div class="stem"></div>
-        <div class="stem"></div>
-        <div class="stem"></div>
-        <div class="stem"></div>
-      </div>
-
-      <!-- Lazo Amarillo -->
-      <div class="ribbon-wrap">
-        <div class="ribbon-knot"></div>
-        <div class="ribbon-tails">
-          <div class="tail left"></div>
-          <div class="tail right"></div>
-        </div>
-      </div>
     </div>
-
-    <!-- Botón de música -->
-    <button class="btn-music" id="musicBtn" onclick="toggleAudio()">
-      <span>🎵</span> <span id="musicText">Una Lady Como Tú</span>
-    </button>
   </div>
 
   <!-- Modal con la Carta y la Foto -->
   <div class="modal-overlay" id="letterModal" onclick="closeOnBackdrop(event)">
     <div class="modal-content">
-      <button class="close-btn" onclick="closeLetterModal()">×</button>
+      <button class="close-btn" onclick="closeLetter()">×</button>
       
       <div class="photo-frame">
         <img src="foto.jpg" alt="Foto especial">
@@ -395,14 +352,14 @@
         Hoy quise darte un ramo que nunca se marchita. Gracias por iluminar mis días con tu sonrisa y por ser la persona más increíble. Estas flores amarillas son solo un recordatorio de lo mucho que te amo. 💛
       </div>
 
-      <button class="btn-music" style="margin-top: 0; padding: 10px 22px; font-size: 0.88rem;" onclick="closeLetterModal()">
-        Guardar en el corazón 💛
+      <button class="btn-close-action" onclick="closeLetter()">
+        Guardar con amor 💛
       </button>
     </div>
   </div>
 
   <script>
-    // 1. ANIMACIÓN DE PÉTALOS EN CANVAS
+    // Lluvia fluida de pétalos amarillos
     const canvas = document.getElementById('petalsCanvas');
     const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;
@@ -413,10 +370,10 @@
       height = canvas.height = window.innerHeight;
     });
 
-    const petalColors = ['#fde047', '#facc15', '#eab308', '#fef08a'];
+    const colors = ['#fde047', '#facc15', '#eab308', '#fef08a'];
     const petals = [];
 
-    class FallingPetal {
+    class Petal {
       constructor() { this.reset(); }
       reset() {
         this.x = Math.random() * width;
@@ -424,7 +381,7 @@
         this.size = Math.random() * 8 + 10;
         this.speedY = Math.random() * 1.5 + 1.2;
         this.speedX = Math.random() * 1.2 - 0.6;
-        this.color = petalColors[Math.floor(Math.random() * petalColors.length)];
+        this.color = colors[Math.floor(Math.random() * colors.length)];
         this.rotation = Math.random() * 360;
         this.rotationSpeed = (Math.random() - 0.5) * 2;
       }
@@ -448,89 +405,34 @@
     }
 
     for (let i = 0; i < 35; i++) {
-      const p = new FallingPetal();
+      const p = new Petal();
       p.y = Math.random() * height;
       petals.push(p);
     }
 
-    function animatePetals() {
+    function animate() {
       ctx.clearRect(0, 0, width, height);
       petals.forEach(p => { p.update(); p.draw(); });
-      requestAnimationFrame(animatePetals);
+      requestAnimationFrame(animate);
     }
-    animatePetals();
+    animate();
 
-    // 2. REPRODUCTOR DE YOUTUBE AUTOMÁTICO
-    let player;
-    let isPlaying = false;
-    const musicText = document.getElementById('musicText');
+    // Modal de la Carta
     const modal = document.getElementById('letterModal');
 
-    // Cargar la API de YouTube
-    const tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('ytPlayer', {
-        height: '0',
-        width: '0',
-        videoId: 'VYtJAuoZxcc', // Una Lady Como Tú - Manuel Turizo
-        playerVars: {
-          'autoplay': 0,
-          'controls': 0,
-          'loop': 1,
-          'playlist': 'VYtJAuoZxcc'
-        },
-        events: {
-          'onReady': onPlayerReady
-        }
-      });
-    }
-
-    function onPlayerReady(event) {
-      console.log("YouTube Player listo");
-    }
-
-    function startMusic() {
-      if (player && typeof player.playVideo === 'function') {
-        player.playVideo();
-        isPlaying = true;
-        if (musicText) musicText.textContent = 'Pausar canción';
-      }
-    }
-
-    function openLetterModal() {
+    function openLetter() {
       modal.classList.add('active');
-      startMusic();
     }
 
-    function closeLetterModal() {
+    function closeLetter() {
       modal.classList.remove('active');
     }
 
     function closeOnBackdrop(e) {
       if (e.target === modal) {
-        closeLetterModal();
+        closeLetter();
       }
     }
-
-    function toggleAudio() {
-      if (!isPlaying) {
-        startMusic();
-      } else {
-        if (player && typeof player.pauseVideo === 'function') {
-          player.pauseVideo();
-        }
-        isPlaying = false;
-        if (musicText) musicText.textContent = 'Reproducir canción';
-      }
-    }
-
-    // Desbloqueo en celular o PC al primer toque
-    document.addEventListener('touchstart', () => { if (!isPlaying) startMusic(); }, { once: true });
-    document.addEventListener('click', () => { if (!isPlaying) startMusic(); }, { once: true });
   </script>
 </body>
 </html>
