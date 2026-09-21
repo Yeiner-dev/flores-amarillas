@@ -14,7 +14,7 @@
 
     body {
       min-height: 100vh;
-      background: radial-gradient(circle at 50% 20%, #fffdf0 0%, #fef3c7 50%, #fde68a 100%);
+      background: radial-gradient(circle at 50% 20%, #fffef2 0%, #fef3c7 45%, #fde68a 100%);
       font-family: 'Poppins', sans-serif;
       display: flex;
       flex-direction: column;
@@ -43,8 +43,8 @@
       max-width: 480px;
     }
 
-    /* Contenedor del Ramo Realista */
-    .bouquet-container {
+    /* Contenedor del Ramo de Acuarela */
+    .bouquet-box {
       position: relative;
       width: 100%;
       max-width: 380px;
@@ -54,7 +54,7 @@
       align-items: center;
     }
 
-    .bouquet-art {
+    .bouquet-img {
       width: 100%;
       height: 100%;
       object-fit: contain;
@@ -67,33 +67,33 @@
       100% { transform: rotate(1.5deg) scale(1.02); }
     }
 
-    /* Tarjeta insertada estéticamente en medio del ramo */
+    /* Tarjeta reposicionada más abajo */
     .card-trigger {
       position: absolute;
-      bottom: 145px;
+      bottom: 140px;
       left: 50%;
       transform: translateX(-50%);
       width: 220px;
-      background: rgba(255, 255, 255, 0.94);
+      background: rgba(255, 255, 255, 0.95);
       border: 2px dashed #f59e0b;
       padding: 12px 14px;
       border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(180, 83, 9, 0.25), inset 0 0 15px rgba(254, 243, 199, 0.5);
+      box-shadow: 0 10px 25px rgba(180, 83, 9, 0.28);
       text-align: center;
       cursor: pointer;
       backdrop-filter: blur(6px);
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      animation: pulseCard 2.4s infinite;
+      animation: pulseBtn 2.4s infinite;
       z-index: 5;
     }
 
     .card-trigger:hover, .card-trigger:active {
-      transform: translateX(-50%) translateY(-6px) scale(1.04);
+      transform: translateX(-50%) translateY(-5px) scale(1.04);
     }
 
-    @keyframes pulseCard {
-      0%, 100% { box-shadow: 0 8px 18px rgba(245, 158, 11, 0.2); }
-      50% { box-shadow: 0 14px 30px rgba(245, 158, 11, 0.45); }
+    @keyframes pulseBtn {
+      0%, 100% { box-shadow: 0 8px 20px rgba(245, 158, 11, 0.25); }
+      50% { box-shadow: 0 14px 30px rgba(245, 158, 11, 0.5); }
     }
 
     .card-trigger .icon {
@@ -225,7 +225,7 @@
       box-shadow: 0 6px 16px rgba(217, 119, 6, 0.3);
     }
 
-    /* Control discreto de música */
+    /* Etiqueta de audio */
     .music-tag {
       margin-top: 8px;
       background: rgba(255, 255, 255, 0.9);
@@ -258,15 +258,20 @@
   <!-- Lluvia de pétalos amarillos -->
   <canvas id="petalsCanvas"></canvas>
 
-  <!-- Contenedor del reproductor de YouTube -->
+  <!-- Contenedor del reproductor de YouTube invisible -->
   <div id="ytPlayer"></div>
 
   <div class="main-wrap">
-    <div class="bouquet-container">
-      <!-- Ramo Artístico de Acuarela -->
-     <img src="ramo.png" alt="Ramo de Flores Amarillas" class="bouquet-art">
+    <div class="bouquet-box">
+      <!-- Ramo Grande de Acuarela -->
+      <img 
+        src="https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=800&q=80" 
+        alt="Ramo de Flores Amarillas" 
+        class="bouquet-img"
+        style="border-radius: 20px; -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 60%, transparent 100%); mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 60%, transparent 100%);"
+      >
 
-      <!-- Tarjeta reposicionada justo encima de los tallos -->
+      <!-- Tarjeta posicionada más abajo -->
       <div class="card-trigger" onclick="openLetter()">
         <span class="icon">💌</span>
         <div class="title">Para Ti</div>
@@ -274,7 +279,7 @@
       </div>
     </div>
 
-    <!-- Botón de música de Manuel Turizo -->
+    <!-- Botón discreto de música -->
     <div class="music-tag" onclick="toggleAudio()">
       <span>🎵</span> <span id="musicStatus">Una Lady Como Tú ▶️</span>
     </div>
@@ -361,7 +366,7 @@
     }
     animate();
 
-    // 2. REPRODUCTOR DE YOUTUBE AUTOMÁTICO (Una Lady Como Tú)
+    // 2. REPRODUCTOR DE YOUTUBE (Manuel Turizo - Una Lady Como Tú)
     let player;
     let isPlaying = false;
     const musicStatus = document.getElementById('musicStatus');
@@ -426,7 +431,7 @@
       }
     }
 
-    // Desbloqueo al primer toque
+    // Desbloqueo del audio con la primera interacción en móvil o PC
     document.addEventListener('click', () => { if (!isPlaying) playMusic(); }, { once: true });
     document.addEventListener('touchstart', () => { if (!isPlaying) playMusic(); }, { once: true });
   </script>
